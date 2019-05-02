@@ -1,4 +1,4 @@
-package com.example.test_photo_app;
+package com.example.androidproject16;
 /**
  *
  */

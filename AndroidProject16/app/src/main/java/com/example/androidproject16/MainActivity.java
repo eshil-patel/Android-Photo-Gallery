@@ -1,4 +1,4 @@
-package com.example.test_photo_app;
+package com.example.androidproject16;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void open(View view){
-        Intent intent = new Intent(this,openAlbum.class);
+        // initialize the data for openalbum (send the entire user object
+        open_album.init(user,albumselected);
+        albumselected=null;
+        Intent intent = new Intent(this,open_album.class);
         // send in the album to the next page to use
         startActivity(intent);
     }
