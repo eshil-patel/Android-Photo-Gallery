@@ -65,6 +65,9 @@ public class Album implements Serializable{
         Photos.remove(d);
         numPhotos--;
     }
+    public Photo getPhoto(int d){
+        return Photos.get(d);
+    }
     /**
      * Helper method to keep the min and maxdate accurate. Is called whenever a photo is added or removed.
      */

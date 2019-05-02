@@ -3,11 +3,15 @@ package com.example.androidproject16;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.net.URI;
 
@@ -24,6 +28,7 @@ public class open_album extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_album);
         // will have initialize the view for whatever photos there are, and then give options
+        updatelayout();
     }
     public void addPhoto(View view){
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -35,7 +40,6 @@ public class open_album extends AppCompatActivity {
             switch(requestCode){
                 case photo_request_code:
                     Uri image = data.getData();
-                    System.out.println("this worked up to here");
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
                     Cursor cursor = getContentResolver().query(image, filePathColumn, null, null, null);
                     cursor.moveToFirst();
@@ -44,12 +48,21 @@ public class open_album extends AppCompatActivity {
                     cursor.close();
                     Photo newphoto=new Photo(path);
                     album.addPhoto(newphoto);
-                    System.out.println("This worked");
+                    updatelayout();
                 }
             }
         }
         public void updatelayout(){
-        
+            //clear the linearlayout first
+            LinearLayout display = findViewById(R.id.displayphoto);
+            display.removeAllViews();
+            for(int i=0;i<album.getNumPhotos();i++){
+                Photo todisplay=album.getPhoto(i);
+                ImageView image = new ImageView(this);
+                Bitmap bitmap = BitmapFactory.decodeFile(todisplay.getPath());
+                image.setImageBitmap(bitmap);
+                display.addView(image);
+            }
         }
     }
 
