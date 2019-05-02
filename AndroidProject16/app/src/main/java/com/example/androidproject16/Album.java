@@ -48,7 +48,6 @@ public class Album implements Serializable{
     public void addPhoto(Photo d){
         Photos.add(d);
         numPhotos++;
-        updateDates();
     }
     /**
      * Removes the photos from Photos
@@ -57,7 +56,6 @@ public class Album implements Serializable{
     public void removePhoto(Photo d){
         Photos.remove(d);
         numPhotos--;
-        updateDates();
     }
     /**
      *Removes the photos from Photos
@@ -66,37 +64,11 @@ public class Album implements Serializable{
     public void removePhoto(int d){
         Photos.remove(d);
         numPhotos--;
-        updateDates();
     }
     /**
      * Helper method to keep the min and maxdate accurate. Is called whenever a photo is added or removed.
      */
-    private void updateDates(){
-        if (Photos.size() == 0){
-            minDate = null;
-            maxDate = null;
-            dateRange="";
-            return;
-        }
-        if (minDate == null || maxDate == null){
-            minDate = Photos.get(0).getDate();
-            maxDate = Photos.get(0).getDate();
-        }
-        for (Photo d:Photos){
-            if (d.getDate().compareTo(minDate)<0){
-                minDate = d.getDate();
-            }
-            if (d.getDate().compareTo(maxDate)>0){
-                maxDate = d.getDate();
-            }
-        }
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-        String min=format.format(minDate);
-        String max=format.format(maxDate);
-        //dateRange = minDate.toString().concat("+").concat(maxDate.toString());
-        dateRange=min.concat("-").concat(max);
 
-    }
     /**
      * Getter method for Album Name.
      * @return Name of the album.

@@ -20,11 +20,9 @@ public class Photo implements Serializable{
     private String Caption;
     /**Constructor for photo
      * @param path filepath of photo
-     * @param longdate date in long millisecond form
      */
-    public Photo(String path,long longdate){
+    public Photo(String path){
         this.path = path;
-        this.date= new Date(longdate);
         Tags = new ArrayList<Tag>();
         Caption = null;
     }

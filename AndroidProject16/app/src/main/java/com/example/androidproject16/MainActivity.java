@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         init(user);
         for (Album al:user.getAlbums()){
             String name = al.getName();
-            System.out.println(name);
             albumnames.add(name);
         }
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1,albumnames);
