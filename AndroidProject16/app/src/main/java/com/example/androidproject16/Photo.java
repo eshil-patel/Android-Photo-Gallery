@@ -74,6 +74,14 @@ public class Photo implements Serializable{
             return;
         }
         Tags.add(m);
+    }/**Add tag to the photo
+     * @param name & value of tag to add
+     */
+    public void addTags(String name, String value){
+        if (Tags.contains(new Tag(name, value))){
+            return;
+        }
+        Tags.add(new Tag(name,value));
     }
     /**Remove tag from the photo
      * @param m tag to remove
@@ -100,6 +108,15 @@ public class Photo implements Serializable{
             return true;
         }
         return false;
+    }
+    public void editTag(int index,String name, String value){
+        if (index >= this.getTags().size()){
+            this.addTags(name,value);
+        }else{
+            Tags.get(index).setName(name);
+            Tags.get(index).setValue(value);
+        }
+
     }
     /* (non-Javadoc)
      * equals method customized

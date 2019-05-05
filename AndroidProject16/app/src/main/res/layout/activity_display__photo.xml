@@ -8,10 +8,8 @@
 
     <ImageView
         android:id="@+id/dispImg"
-        android:layout_width="386dp"
-        android:layout_height="546dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="397dp"
+        android:layout_height="421dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -20,7 +18,7 @@
         android:id="@+id/nextImgId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="120dp"
         android:layout_marginBottom="16dp"
         android:onClick="nextImg"
         android:text="Next"
@@ -31,10 +29,63 @@
         android:id="@+id/prevImgId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="52dp"
         android:layout_marginBottom="16dp"
         android:onClick="prevImg"
         android:text="Previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/editTagsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="editTags"
+        android:text="Edit Tags"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/prevImgId" />
+
+    <EditText
+        android:id="@+id/tag1Name"
+        android:layout_width="95dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tag1Value"
+        app:layout_constraintStart_toStartOf="@+id/tag1Value" />
+
+    <EditText
+        android:id="@+id/tag1Value"
+        android:layout_width="91dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/prevImgId"
+        app:layout_constraintStart_toStartOf="@+id/prevImgId" />
+
+    <EditText
+        android:id="@+id/tag2Name"
+        android:layout_width="91dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tag2Value"
+        app:layout_constraintStart_toStartOf="@+id/tag2Value" />
+
+    <EditText
+        android:id="@+id/tag2Value"
+        android:layout_width="92dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/nextImgId"
+        app:layout_constraintStart_toStartOf="@+id/nextImgId" />
+
 </android.support.constraint.ConstraintLayout>

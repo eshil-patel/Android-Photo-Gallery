@@ -9,11 +9,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -39,6 +37,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         Button m2 = findViewById(R.id.dispPhoto);
         m2.setEnabled(false);
         // will have initialize the view for whatever photos there are, and then give options
+        System.out.println("RANT METHOD");
         updateLayout();
     }
     public void addPhoto(View view){
@@ -49,6 +48,15 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     public void removePhoto(View view){
         System.out.println("REMOVE PHOTO BUTTON PRESSED");
         album.removePhoto(currentImg);
+        if (currentImg == album.getNumPhotos()){
+            currentImg--;
+        }
+        if (album.getNumPhotos() == 0){
+            Button m1 = findViewById(R.id.rmvPhoto);
+            m1.setEnabled(false);
+            Button m2 = findViewById(R.id.dispPhoto);
+            m2.setEnabled(false);
+        }
         DataSaver.save(this,user);
         updateLayout();
     }
