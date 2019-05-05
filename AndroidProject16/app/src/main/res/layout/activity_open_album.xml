@@ -10,8 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="83dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="596dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginBottom="604dp"
         android:text="Images "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -20,18 +20,17 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="264dp"
-        android:layout_marginBottom="240dp"
+        android:layout_marginEnd="176dp"
         android:onClick="addPhoto"
         android:text="Add Photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <HorizontalScrollView
-        android:layout_width="279dp"
-        android:layout_height="190dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="308dp"
+        android:layout_width="238dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="660dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -41,5 +40,18 @@
             android:layout_height="match_parent"
             android:orientation="horizontal" />
     </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="393dp"
+        android:layout_height="505dp"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableLayout
+            android:id="@+id/imgTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true" />
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
