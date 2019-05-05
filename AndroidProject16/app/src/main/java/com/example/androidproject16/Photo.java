@@ -92,7 +92,18 @@ public class Photo implements Serializable{
         }
         Tags.remove(m);
     }
-
+    /**Remove all tags from the photo
+     */
+    public void removeAllTags(){
+        Tags.clear();
+    }
+    /**Remove tags from the photo
+     */
+    public void removeTags(int index){
+        if (index < Tags.size() || index >= 0){
+            Tags.remove(index);
+        }
+    }
     /**Get the list of tags from the photo
      * @return
      */
