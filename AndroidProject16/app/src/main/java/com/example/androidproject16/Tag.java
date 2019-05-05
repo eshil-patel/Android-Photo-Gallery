@@ -58,7 +58,7 @@ public class Tag implements Serializable{
             return false;
         }
         Tag b = (Tag)a;
-        if (this.name.equalsIgnoreCase(b.name) && this.value.equalsIgnoreCase(b.value)){
+        if (this.name.toLowerCase().contains(b.name.toLowerCase()) && this.value.toLowerCase().contains(b.value.toLowerCase())){
             return true;
         }
         return false;

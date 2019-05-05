@@ -1,6 +1,7 @@
 package com.example.androidproject16;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<Album> albums;
-    public static String albumselected="";
+    public static String albumselected;
     public static User user;
     public static ArrayAdapter<String> adapter;
     public void init(User user){
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void open(View view){
         // initialize the data for openalbum (send the entire user object
+        if(albumselected==null){
+            showAlert("Please choose an album to open");
+            return;
+        }
         open_album.init(user,albumselected);
         albumselected=null;
         Intent intent = new Intent(this,open_album.class);
@@ -60,9 +65,15 @@ public class MainActivity extends AppCompatActivity {
     public void create(View view){
         ListView listview = findViewById(R.id.albumname);
         EditText newalbum = findViewById(R.id.createalbum);
-        System.out.println(newalbum.getText().toString());
+        if(newalbum.getText().toString().equals("")){
+            showAlert("Please enter a name for new album");
+            return;
+        }
         Album toadd=new Album(newalbum.getText().toString());
         // check if the album is already in the list
+        if(user.hasAlbum(newalbum.getText().toString())){
+            showAlert("This album already exists");
+        }
         user.addAlbum(toadd);
         DataSaver.save(MainActivity.this,user);
         setListView();
@@ -70,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public void delete(View view){
         ListView listview = findViewById(R.id.albumname);
         if(albumselected==null){
-            System.out.println("this is null, please choose an album");
+            showAlert("No albuum selected to delete");
             return;
         }
         String o=albumselected;
@@ -83,16 +94,25 @@ public class MainActivity extends AppCompatActivity {
     public void rename(View view){
         ListView listview = findViewById(R.id.albumname);
         if(albumselected==null){
-            System.out.println("this album is null");
+            showAlert("No album selected to rename");
             return;
         }
         String old=albumselected;
         EditText newname = findViewById(R.id.renamealbum);
+        if(newname.getText().toString().equals("")){
+            showAlert("Please enter a new name for an album");
+            return;
+        }
         Album a = new Album(albumselected);
+        if(user.hasAlbum(newname.getText().toString())){
+            showAlert("This album name already exists");
+            return;
+        }
         user.renameAlbum(a,newname.getText().toString());
         albumselected=null;
         DataSaver.save(MainActivity.this,user);
         setListView();
+
     }
     public void setListView(){
         ListView listview = findViewById(R.id.albumname);
@@ -106,5 +126,9 @@ public class MainActivity extends AppCompatActivity {
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
+    public void showAlert(String text){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(text);
+        alert.show();
+    }
 }

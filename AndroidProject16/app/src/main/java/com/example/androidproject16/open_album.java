@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,20 +49,25 @@ public class open_album extends AppCompatActivity {
                     cursor.close();
                     Photo newphoto=new Photo(path);
                     album.addPhoto(newphoto);
+                    DataSaver.save(open_album.this,user);
                     updatelayout();
                 }
             }
         }
         public void updatelayout(){
             //clear the linearlayout first
-            LinearLayout display = findViewById(R.id.displayphoto);
-            display.removeAllViews();
+            LinearLayout gallery = findViewById(R.id.displayphotos);
+            gallery.removeAllViews();
             for(int i=0;i<album.getNumPhotos();i++){
+                System.out.println("Image "+i);
                 Photo todisplay=album.getPhoto(i);
                 ImageView image = new ImageView(this);
                 Bitmap bitmap = BitmapFactory.decodeFile(todisplay.getPath());
                 image.setImageBitmap(bitmap);
-                display.addView(image);
+                //image.getLayoutParams().height=40;
+                //image.getLayoutParams().width=60;
+                gallery.addView(image);
+
             }
         }
     }
