@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -23,6 +24,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     public static User user;
     public static Album album;
     public static final int photo_request_code=1;
+    public int currentImg = -1;
     public static void init(User u,String a){
         user=u;
         album=user.getAlbum(a);
@@ -31,6 +33,11 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_album);
+
+        Button m1 = findViewById(R.id.rmvPhoto);
+        m1.setEnabled(false);
+        Button m2 = findViewById(R.id.dispPhoto);
+        m2.setEnabled(false);
         // will have initialize the view for whatever photos there are, and then give options
         updateLayout();
     }
@@ -38,6 +45,19 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent,photo_request_code);
+    }
+    public void removePhoto(View view){
+        System.out.println("REMOVE PHOTO BUTTON PRESSED");
+        album.removePhoto(currentImg);
+        DataSaver.save(this,user);
+        updateLayout();
+    }
+    public void displayPhoto(View view){
+        System.out.println("DISPLAY PHOTO BUTTON PRESSED");
+        display_Photo.init(user,album.getName(),currentImg);
+        Intent intent = new Intent(this,display_Photo.class);
+        // send in the album to the next page to use
+        startActivity(intent);
     }
     public void onActivityResult(int requestCode,int resultCode, Intent data){
         if(resultCode== Activity.RESULT_OK){
@@ -53,27 +73,10 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
                     Photo newphoto=new Photo(path);
                     album.addPhoto(newphoto);
                     DataSaver.save(open_album.this,user);
-//                    updatelayout();
                     updateLayout();
                 }
             }
         }
-/*        public void updatelayout(){
-            //clear the linearlayout first
-            LinearLayout gallery = findViewById(R.id.displayphotos);
-            gallery.removeAllViews();
-            for(int i=0;i<album.getNumPhotos();i++){
-                System.out.println("Image "+i);
-                Photo todisplay=album.getPhoto(i);
-                ImageView image = new ImageView(this);
-                Bitmap bitmap = BitmapFactory.decodeFile(todisplay.getPath());
-                image.setImageBitmap(bitmap);
-                //image.getLayoutParams().height=40;
-                //image.getLayoutParams().width=60;
-                gallery.addView(image);
-
-            }
-        }*/
         public void updateLayout(){
             TableLayout grid = findViewById(R.id.imgTable);
             ArrayList<Photo> temp;
@@ -114,6 +117,11 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         public void onClick(View v){
             int id = v.getId();
             System.out.println(id);
+            currentImg = id;
+            Button m1 = findViewById(R.id.rmvPhoto);
+            m1.setEnabled(true);
+            Button m2 = findViewById(R.id.dispPhoto);
+            m2.setEnabled(true);
 
         }
     }

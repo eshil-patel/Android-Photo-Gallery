@@ -18,13 +18,12 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="176dp"
+        android:layout_width="108dp"
+        android:layout_height="51dp"
         android:onClick="addPhoto"
         android:text="Add Photo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <HorizontalScrollView
         android:layout_width="238dp"
@@ -53,5 +52,26 @@
             android:layout_height="wrap_content"
             android:isScrollContainer="true" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/rmvPhoto"
+        android:layout_width="149dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="4dp"
+        android:enabled="false"
+        android:onClick="removePhoto"
+        android:text="Remove Photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/dispPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:onClick="displayPhoto"
+        android:text="Display Photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rmvPhoto" />
 
 </android.support.constraint.ConstraintLayout>
