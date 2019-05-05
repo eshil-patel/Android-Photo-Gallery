@@ -94,20 +94,21 @@ public class display_Photo extends AppCompatActivity {
         EditText t2v = findViewById(R.id.tag2Value);
 
         if(t2n.getText().toString().isEmpty() ){
+            System.out.println("REMOVE TAG 1");
             photo.removeTags(1);
-            return;
         }
         if (t1n.getText().toString().isEmpty()){
+            System.out.println("REMOVE TAG 0");
             photo.removeTags(0);
             return;
         }
-
         if (t1n.getText().toString().equalsIgnoreCase("person") || t1n.getText().toString().equalsIgnoreCase("location")){
             if (t1v.getText().toString().isEmpty()){
                 showAlert("TAG VALUE MUST BE NONNULL");
                 return;
             }
             photo.editTag(0,t1n.getText().toString(),t1v.getText().toString());
+            System.out.println("TAG 1 ADDED");
             DataSaver.save(this,user);
         }else{
             showAlert("TAGS MUST BE 'PERSON' OR 'LOCATION'");
@@ -122,6 +123,7 @@ public class display_Photo extends AppCompatActivity {
                 return;
             }
             photo.editTag(1,t2n.getText().toString(),t2v.getText().toString());
+            System.out.println("TAG 2 ADDED");
             DataSaver.save(this,user);
         }else{
             showAlert("TAGS MUST BE 'PERSON' OR 'LOCATION'");

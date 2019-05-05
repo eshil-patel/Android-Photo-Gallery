@@ -100,7 +100,7 @@ public class Photo implements Serializable{
     /**Remove tags from the photo
      */
     public void removeTags(int index){
-        if (index < Tags.size() || index >= 0){
+        if (index < Tags.size() && index >= 0){
             Tags.remove(index);
         }
     }
