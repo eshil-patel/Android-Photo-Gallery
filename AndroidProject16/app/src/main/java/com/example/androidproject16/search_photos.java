@@ -1,11 +1,16 @@
 package com.example.androidproject16;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import java.util.ArrayList;
 
@@ -40,8 +45,8 @@ public class search_photos extends AppCompatActivity {
         else if(!(t1.equals(""))||!(v1.equals(""))||!(t2.equals(""))||!(v2.equals(""))) {
             RadioButton or = findViewById(R.id.or);
             RadioButton and = findViewById(R.id.and);
-            boolean isOr=or.isSelected();
-            boolean isAnd=and.isSelected();
+            boolean isOr=or.isChecked();
+            boolean isAnd=and.isChecked();
             if(isOr && isAnd) { //both selected
                 showAlert("Please select only one of or/and");
                 return;
@@ -72,6 +77,36 @@ public class search_photos extends AppCompatActivity {
         alert.show();
     }
     public void updatelayout(ArrayList<Photo> photos){
+        TableLayout grid = findViewById(R.id.searchresults);
+        grid.removeAllViews();
+        int r = 0;
+        int j = 0;
+        TableRow row = new TableRow(this);
+        System.out.println("WIDTH = " + grid.getWidth());
+        int m = grid.getWidth();
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(m/3,m/3,TableRow.LayoutParams.WRAP_CONTENT);
+        row.setLayoutParams(lp);
+        row.setId(r);
 
+        for (Photo i: photos){
+            if (j == 3){
+                grid.addView(row,r);
+                r++;
+                j = 0;
+                row = new TableRow(this);
+                row.setId(r);
+                row.setLayoutParams(lp);
+            }
+            System.out.println("Image "+i);
+            Photo toDisplay= i;
+            ImageView image = new ImageView(this);
+            Bitmap bitmap = BitmapFactory.decodeFile(toDisplay.getPath());
+            image.setImageBitmap(bitmap);
+            image.setLayoutParams(lp);
+            image.setId(3*r + j);
+            row.addView(image,j);
+            j++;
+        }
+        grid.addView(row,r);
     }
 }

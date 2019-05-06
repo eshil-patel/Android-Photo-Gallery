@@ -31,7 +31,6 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_album);
-
         Button m1 = findViewById(R.id.rmvPhoto);
         m1.setEnabled(false);
         Button m2 = findViewById(R.id.dispPhoto);
@@ -88,6 +87,9 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         public void updateLayout(){
             TableLayout grid = findViewById(R.id.imgTable);
             ArrayList<Photo> temp;
+            if(album==null){
+                return;
+            }
             temp=album.getPhotos();
             grid.removeAllViews();
             int r = 0;

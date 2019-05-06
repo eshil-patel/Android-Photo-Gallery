@@ -114,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
         setListView();
 
     }
+    public void search(View view){
+        search_photos.init(user);
+        Intent intent = new Intent(this,search_photos.class);
+        // send in the album to the next page to use
+        startActivity(intent);
+    }
     public void setListView(){
         ListView listview = findViewById(R.id.albumname);
         ArrayList<String> albumnames= new ArrayList<>();
