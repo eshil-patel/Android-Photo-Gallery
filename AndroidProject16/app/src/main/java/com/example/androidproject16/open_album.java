@@ -39,6 +39,13 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         System.out.println("RANT METHOD");
         updateLayout();
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        user=DataSaver.load(open_album.this);
+        album=user.getAlbum(album.getName());
+        updateLayout();
+    }
     public void addPhoto(View view){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -78,7 +85,8 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
                     String path = cursor.getString(columnIndex);
                     cursor.close();
                     Photo newphoto=new Photo(path);
-                    album.addPhoto(newphoto);
+                    album.addPhoto(newphoto); // not putting it into the right place?
+                    user.getAlbum(album.getName()).addPhoto(newphoto);
                     DataSaver.save(open_album.this,user);
                     updateLayout();
                 }
