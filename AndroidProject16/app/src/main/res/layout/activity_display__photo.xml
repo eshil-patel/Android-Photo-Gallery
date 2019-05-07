@@ -8,8 +8,9 @@
 
     <ImageView
         android:id="@+id/dispImg"
-        android:layout_width="397dp"
-        android:layout_height="421dp"
+        android:layout_width="394dp"
+        android:layout_height="394dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -18,18 +19,17 @@
         android:id="@+id/nextImgId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
         android:layout_marginBottom="16dp"
         android:onClick="nextImg"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/prevImgId" />
+        app:layout_constraintStart_toEndOf="@+id/button7" />
 
     <Button
         android:id="@+id/prevImgId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="56dp"
         android:layout_marginBottom="16dp"
         android:onClick="prevImg"
         android:text="Previous"
@@ -37,55 +37,81 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/editTagsButton"
+        android:id="@+id/addTagButton"
+        android:layout_width="112dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:onClick="addTag"
+        android:text="Add/Edit Tags"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/deleteTagButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/deleteTagButton" />
+
+    <EditText
+        android:id="@+id/tagNameText"
+        android:layout_width="102dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/tagValueText"
+        app:layout_constraintEnd_toStartOf="@+id/addTagButton" />
+
+    <EditText
+        android:id="@+id/tagValueText"
+        android:layout_width="101dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/albumNameText"
+        app:layout_constraintEnd_toEndOf="@+id/tagNameText" />
+
+    <Button
+        android:id="@+id/deleteTagButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="editTags"
-        android:text="Edit Tags"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/prevImgId" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:onClick="deleteTag"
+        android:text="Delete Tags"
+        app:layout_constraintBottom_toTopOf="@+id/albumNameText"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/tag1Name"
-        android:layout_width="95dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="4dp"
+        android:id="@+id/albumNameText"
+        android:layout_width="150dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="72dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/tag1Value"
-        app:layout_constraintStart_toStartOf="@+id/tag1Value" />
-
-    <EditText
-        android:id="@+id/tag1Value"
-        android:layout_width="91dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/prevImgId"
+        android:text="Album Name"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintStart_toStartOf="@+id/prevImgId" />
 
-    <EditText
-        android:id="@+id/tag2Name"
-        android:layout_width="91dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="4dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/tag2Value"
-        app:layout_constraintStart_toStartOf="@+id/tag2Value" />
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="moveAlbum"
+        android:text="Move Album"
+        app:layout_constraintBottom_toBottomOf="@+id/prevImgId"
+        app:layout_constraintStart_toEndOf="@+id/prevImgId" />
 
-    <EditText
-        android:id="@+id/tag2Value"
-        android:layout_width="92dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/nextImgId"
-        app:layout_constraintStart_toStartOf="@+id/nextImgId" />
+    <ListView
+        android:id="@+id/tagList"
+        android:layout_width="135dp"
+        android:layout_height="99dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/albumNameText"
+        app:layout_constraintEnd_toStartOf="@+id/tagValueText" />
 
 </android.support.constraint.ConstraintLayout>
