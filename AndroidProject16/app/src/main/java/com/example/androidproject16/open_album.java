@@ -1,12 +1,15 @@
 package com.example.androidproject16;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     public static Album album;
     public static final int photo_request_code=1;
     public int currentImg = -1;
-    public static void init(User u,String a){
+    public static void initvar(User u,String a){
         user=u;
         album=user.getAlbum(a);
     }
@@ -35,9 +39,13 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         m1.setEnabled(false);
         Button m2 = findViewById(R.id.dispPhoto);
         m2.setEnabled(false);
-        // will have initialize the view for whatever photos there are, and then give options
-        System.out.println("RANT METHOD");
+        TableLayout grid = findViewById(R.id.imgTable);
+        ActivityCompat.requestPermissions(open_album.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                1);
+
         updateLayout();
+
     }
     @Override
     protected void onResume(){
@@ -95,9 +103,6 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         public void updateLayout(){
             TableLayout grid = findViewById(R.id.imgTable);
             ArrayList<Photo> temp;
-            if(album==null){
-                return;
-            }
             temp=album.getPhotos();
             grid.removeAllViews();
             int r = 0;
@@ -142,6 +147,27 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
             m2.setEnabled(true);
 
         }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        updateLayout();
+
+                } else {
+                    Toast.makeText(open_album.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
     }
 
 

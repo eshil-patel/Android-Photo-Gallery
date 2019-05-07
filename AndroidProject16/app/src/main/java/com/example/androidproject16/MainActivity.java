@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             showAlert("Please choose an album to open");
             return;
         }
-        open_album.init(user,albumselected);
+        open_album.initvar(user,albumselected);
         albumselected=null;
         Intent intent = new Intent(this,open_album.class);
         // send in the album to the next page to use
