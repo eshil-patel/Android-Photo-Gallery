@@ -110,6 +110,16 @@ public class Photo implements Serializable{
     public ArrayList<Tag> getTags() {
         return Tags;
     }
+    /**Get the list of tags from the photo in an arraylist of strings
+     * @return arraylist of strings of tags
+     */
+    public ArrayList<String>getTagStrings(){
+        ArrayList<String> tagString = new ArrayList<String>();
+        for (Tag i: Tags){
+            tagString.add(i.toString());
+        }
+        return tagString;
+    }
     /**Check if the photo has specific tag
      * @param m tag to check if it has
      * @return

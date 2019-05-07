@@ -68,7 +68,7 @@ public class Tag implements Serializable{
      * @see java.lang.Object#toString()
      */
     public String toString(){
-        return ("(" + this.name+ ", " + this.value+")");
+        return ( this.name+ ", " + this.value);
     }
 }
 

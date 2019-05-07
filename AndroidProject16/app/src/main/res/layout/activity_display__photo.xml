@@ -38,18 +38,15 @@
 
     <Button
         android:id="@+id/addTagButton"
-        android:layout_width="112dp"
+        android:layout_width="107dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="48dp"
         android:onClick="addTag"
-        android:text="Add/Edit Tags"
-        android:textSize="12sp"
+        android:text="Add Tag"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/deleteTagButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/deleteTagButton" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/tagNameText"
@@ -76,12 +73,11 @@
 
     <Button
         android:id="@+id/deleteTagButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_width="108dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="12dp"
         android:onClick="deleteTag"
-        android:text="Delete Tags"
+        android:text="Delete Tag"
         app:layout_constraintBottom_toTopOf="@+id/albumNameText"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -109,9 +105,18 @@
         android:id="@+id/tagList"
         android:layout_width="135dp"
         android:layout_height="99dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/albumNameText"
         app:layout_constraintEnd_toStartOf="@+id/tagValueText" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:onClick="editTag"
+        android:text="Edit Tag"
+        app:layout_constraintBottom_toTopOf="@+id/deleteTagButton"
+        app:layout_constraintStart_toStartOf="@+id/deleteTagButton" />
 
 </android.support.constraint.ConstraintLayout>

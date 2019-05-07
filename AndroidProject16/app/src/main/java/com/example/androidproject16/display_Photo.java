@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,20 +55,32 @@ public class display_Photo extends AppCompatActivity {
         t1n.setText("");
         t1v.setText("");
 
-
-        if (toDisplay.getTags().size() >= 1){
-            t1n.setText(toDisplay.getTags().get(0).getName());
-            t1v.setText(toDisplay.getTags().get(0).getValue());
+        if (currentTag!=-1){
+            t1n.setText(toDisplay.getTags().get(currentTag).getName());
+            t1v.setText(toDisplay.getTags().get(currentTag).getValue());
         }
 
-        ListView tagList = findViewById(R.id.tagList);
+        final ListView tagList = findViewById(R.id.tagList);
+        tagList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                currentTag = i;
+                updateScreen();
+                System.out.println(currentTag + " " +i);
+            }
+        });
 
 
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1,toDisplay.getTags().toString());
+        adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1,toDisplay.getTagStrings());
         tagList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         System.out.println(toDisplay.getTags());
+    }
+    public void updateSelectTag(View v){
+        ListView tagList = findViewById(R.id.tagList);
+        currentTag = tagList.getSelectedItemPosition();
+        System.out.println(currentTag);
     }
     public void activateButtons(){
         Button m1 = findViewById(R.id.nextImgId);
@@ -83,28 +96,93 @@ public class display_Photo extends AppCompatActivity {
     }
     public void nextImg(View view){
         currentImg++;
+        currentTag = -1;
         updateScreen();
         activateButtons();
     }
     public void prevImg(View view){
         currentImg--;
+        currentTag = -1;
         updateScreen();
         activateButtons();
     }
 
     public void addTag(View view){
+        EditText t1n = findViewById(R.id.tagNameText);
+        EditText t1v = findViewById(R.id.tagValueText);
+        String tagn = t1n.getText().toString();
+        String tagv = t1v.getText().toString();
+        if (tagn.isEmpty() || tagv.isEmpty()){
+            showAlert("Name and value must be nonnull!");
+            return;
+        }
+        Photo toDisplay= album.getPhoto(currentImg);
+        if (tagn.equalsIgnoreCase("Person") || tagn.equalsIgnoreCase("Location")){
+            toDisplay.addTags(new Tag(tagn,tagv));
+            DataSaver.save(this,user);
+            updateScreen();
+        }else{
+            showAlert("Tag name should be 'Person' or 'Location'");
+        }
+    }
+    public void editTag(View view){
+        EditText t1n = findViewById(R.id.tagNameText);
+        EditText t1v = findViewById(R.id.tagValueText);
+        String tagn = t1n.getText().toString();
+        String tagv = t1v.getText().toString();
+        if (tagn.isEmpty() || tagv.isEmpty()){
+            showAlert("Name and value must be nonnull!");
+            return;
+        }
+        Photo toDisplay= album.getPhoto(currentImg);
+        if (tagn.equalsIgnoreCase("Person") || tagn.equalsIgnoreCase("Location")){
+            toDisplay.editTag(currentTag,tagn,tagv);
+            DataSaver.save(this,user);
+            updateScreen();
+        }else{
+            showAlert("Tag name should be 'Person' or 'Location'");
+        }
 
     }
     public void deleteTag(View view){
-
+        Photo photo = album.getPhoto(currentImg);
+        if (currentTag!=-1) {
+            photo.removeTags(currentTag);
+            if (currentTag == photo.getTags().size()){
+                currentTag--;
+            }
+            DataSaver.save(this,user);
+            updateScreen();
+        }
     }
     public void moveAlbum(View view){
-
+        EditText mA = findViewById(R.id.albumNameText);
+        String j = mA.getText().toString();
+        if (j.isEmpty()){
+            showAlert("AlbumName must be nonempty");
+            return;
+        }else{
+            if ( user.hasAlbum(j)){
+                Photo ph = album.getPhoto(currentImg);
+                album.removePhoto(currentImg);
+                user.getAlbum(j).addPhoto(ph);
+                mA.setText("");
+                if (currentImg == album.getNumPhotos()){
+                    currentImg--;
+                }
+                DataSaver.save(this,user);
+                updateScreen();
+            }else{
+                showAlert("Album does not exist");
+                return;
+            }
+        }
     }
     public void showAlert(String text){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setMessage(text);
         alert.show();
     }
+
 
 }
