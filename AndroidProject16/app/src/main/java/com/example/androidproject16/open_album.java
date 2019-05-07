@@ -40,10 +40,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         Button m2 = findViewById(R.id.dispPhoto);
         m2.setEnabled(false);
         TableLayout grid = findViewById(R.id.imgTable);
-        ActivityCompat.requestPermissions(open_album.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                1);
-
+        ActivityCompat.requestPermissions(open_album.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         updateLayout();
 
     }
@@ -152,20 +149,14 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         updateLayout();
 
                 } else {
-                    Toast.makeText(open_album.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(open_album.this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
     }
