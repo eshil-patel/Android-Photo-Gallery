@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     public void create(View view){
         ListView listview = findViewById(R.id.albumname);
         EditText newalbum = findViewById(R.id.createalbum);
-        newalbum.setText("");
         if(newalbum.getText().toString().equals("")){
             showAlert("Please enter a name for new album");
             return;
@@ -74,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
         // check if the album is already in the list
         if(user.hasAlbum(newalbum.getText().toString())){
             showAlert("This album already exists");
+            newalbum.setText("");
+            return;
         }
+        newalbum.setText("");
         user.addAlbum(toadd);
         DataSaver.save(MainActivity.this,user);
         setListView();
@@ -100,16 +102,19 @@ public class MainActivity extends AppCompatActivity {
         }
         String old=albumselected;
         EditText newname = findViewById(R.id.renamealbum);
-        newname.setText("");
+
         if(newname.getText().toString().equals("")){
             showAlert("Please enter a new name for an album");
             return;
         }
+
         Album a = new Album(albumselected);
         if(user.hasAlbum(newname.getText().toString())){
             showAlert("This album name already exists");
+            newname.setText("");
             return;
         }
+        newname.setText("");
         user.renameAlbum(a,newname.getText().toString());
         albumselected=null;
         DataSaver.save(MainActivity.this,user);
