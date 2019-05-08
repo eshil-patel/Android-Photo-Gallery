@@ -154,7 +154,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
                         updateLayout();
                 }
                 else {
-                    Toast.makeText(open_album.this, "Permission denied, please allow permissions", Toast.LENGTH_SHORT).show();
+                    System.out.println("Did not work");
                 }
                 return;
             }
