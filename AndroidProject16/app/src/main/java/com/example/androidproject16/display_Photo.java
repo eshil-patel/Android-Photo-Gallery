@@ -140,6 +140,10 @@ public class display_Photo extends AppCompatActivity {
             showAlert("Name and value must be nonnull!");
             return;
         }
+        if (currentTag == -1){
+            showAlert("Select a tag first");
+            return;
+        }
         Photo toDisplay= album.getPhoto(currentImg);
         if (tagn.equalsIgnoreCase("Person") || tagn.equalsIgnoreCase("Location")){
             user.getAlbum(album.getName()).getPhoto(currentImg).editTag(currentTag,tagn,tagv);
