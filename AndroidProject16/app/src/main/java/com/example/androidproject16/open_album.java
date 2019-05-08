@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -146,8 +145,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
 
         }
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults) {
         switch (requestCode) {
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
