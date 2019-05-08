@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -51,8 +52,8 @@ public class search_photos extends AppCompatActivity {
             searchResults=user.getPhotosByTag(t1, v1);
         }
         else if(!(t1.equals(""))||!(v1.equals(""))||!(t2.equals(""))||!(v2.equals(""))) {
-            RadioButton or = findViewById(R.id.or);
-            RadioButton and = findViewById(R.id.and);
+            CheckBox or = findViewById(R.id.or);
+            CheckBox and = findViewById(R.id.and);
             boolean isOr=or.isChecked();
             boolean isAnd=and.isChecked();
             if(isOr){

@@ -141,29 +141,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:layout_width="89dp"
-        android:layout_height="148dp"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="500dp">
+    <CheckBox
+        android:id="@+id/and"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="184dp"
+        android:layout_marginBottom="108dp"
+        android:text="and"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <RadioButton
-            android:id="@+id/and"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="and" />
-
-        <RadioButton
-            android:id="@+id/or"
-            android:layout_width="78dp"
-            android:layout_height="47dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="68dp"
-            android:text="or"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </RadioGroup>
+    <CheckBox
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="76dp"
+        android:text="or"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
