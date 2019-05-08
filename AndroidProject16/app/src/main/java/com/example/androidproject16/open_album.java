@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -39,11 +38,7 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         m1.setEnabled(false);
         Button m2 = findViewById(R.id.dispPhoto);
         m2.setEnabled(false);
-        TableLayout grid = findViewById(R.id.imgTable);
-        ActivityCompat.requestPermissions(open_album.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                1);
-
+        ActivityCompat.requestPermissions(open_album.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         updateLayout();
 
     }
@@ -61,7 +56,8 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     }
     public void removePhoto(View view){
         System.out.println("REMOVE PHOTO BUTTON PRESSED");
-        album.removePhoto(currentImg);
+        user.getAlbum(album.getName()).removePhoto(currentImg);
+        album=user.getAlbum(album.getName());
         if (currentImg == album.getNumPhotos()){
             currentImg--;
         }
@@ -93,8 +89,9 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
                     String path = cursor.getString(columnIndex);
                     cursor.close();
                     Photo newphoto=new Photo(path);
-                    album.addPhoto(newphoto); // not putting it into the right place?
+                    //album.addPhoto(newphoto); // not putting it into the right place?
                     user.getAlbum(album.getName()).addPhoto(newphoto);
+                    album=user.getAlbum(album.getName());
                     DataSaver.save(open_album.this,user);
                     updateLayout();
                 }
@@ -148,24 +145,17 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
 
         }
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults) {
         switch (requestCode) {
             case 1: {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         updateLayout();
-
-                } else {
-                    Toast.makeText(open_album.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    System.out.println("Did not work");
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
     }
