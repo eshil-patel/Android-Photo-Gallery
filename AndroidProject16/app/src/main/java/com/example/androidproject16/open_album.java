@@ -39,7 +39,6 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
         m1.setEnabled(false);
         Button m2 = findViewById(R.id.dispPhoto);
         m2.setEnabled(false);
-        TableLayout grid = findViewById(R.id.imgTable);
         ActivityCompat.requestPermissions(open_album.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         updateLayout();
 
@@ -58,7 +57,8 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
     }
     public void removePhoto(View view){
         System.out.println("REMOVE PHOTO BUTTON PRESSED");
-        album.removePhoto(currentImg);
+        user.getAlbum(album.getName()).removePhoto(currentImg);
+        album=user.getAlbum(album.getName());
         if (currentImg == album.getNumPhotos()){
             currentImg--;
         }
@@ -90,8 +90,9 @@ public class open_album extends AppCompatActivity implements View.OnClickListene
                     String path = cursor.getString(columnIndex);
                     cursor.close();
                     Photo newphoto=new Photo(path);
-                    album.addPhoto(newphoto); // not putting it into the right place?
+                    //album.addPhoto(newphoto); // not putting it into the right place?
                     user.getAlbum(album.getName()).addPhoto(newphoto);
+                    album=user.getAlbum(album.getName());
                     DataSaver.save(open_album.this,user);
                     updateLayout();
                 }

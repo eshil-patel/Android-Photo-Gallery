@@ -38,14 +38,19 @@ public class display_Photo extends AppCompatActivity {
         updateScreen();
         activateButtons();
     }
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        user=DataSaver.load(display_Photo.this);
+        // need to update currentImg
+    }
     private void updateScreen(){
         if (currentImg == -1){
             showAlert("INVALID IMG");
             return;
         }
         ImageView m = findViewById(R.id.dispImg);
-        Photo toDisplay= album.getPhoto(currentImg);
+        Photo toDisplay= user.getAlbum(album.getName()).getPhoto(currentImg);
         Bitmap bitmap = BitmapFactory.decodeFile(toDisplay.getPath());
         m.setImageBitmap(bitmap);
 
@@ -118,7 +123,8 @@ public class display_Photo extends AppCompatActivity {
         }
         Photo toDisplay= album.getPhoto(currentImg);
         if (tagn.equalsIgnoreCase("Person") || tagn.equalsIgnoreCase("Location")){
-            toDisplay.addTags(new Tag(tagn,tagv));
+            user.getAlbum(album.getName()).getPhoto(currentImg).addTags(new Tag(tagn,tagv));
+            toDisplay=user.getAlbum(album.getName()).getPhoto(currentImg);
             DataSaver.save(this,user);
             updateScreen();
         }else{
@@ -136,7 +142,8 @@ public class display_Photo extends AppCompatActivity {
         }
         Photo toDisplay= album.getPhoto(currentImg);
         if (tagn.equalsIgnoreCase("Person") || tagn.equalsIgnoreCase("Location")){
-            toDisplay.editTag(currentTag,tagn,tagv);
+            user.getAlbum(album.getName()).getPhoto(currentImg).editTag(currentTag,tagn,tagv);
+            toDisplay=user.getAlbum(album.getName()).getPhoto(currentImg);
             DataSaver.save(this,user);
             updateScreen();
         }else{
@@ -147,7 +154,8 @@ public class display_Photo extends AppCompatActivity {
     public void deleteTag(View view){
         Photo photo = album.getPhoto(currentImg);
         if (currentTag!=-1) {
-            photo.removeTags(currentTag);
+            user.getAlbum(album.getName()).getPhoto(currentImg).removeTags(currentTag);
+            photo=user.getAlbum(album.getName()).getPhoto(currentImg);
             if (currentTag == photo.getTags().size()){
                 currentTag--;
             }
@@ -164,7 +172,7 @@ public class display_Photo extends AppCompatActivity {
         }else{
             if ( user.hasAlbum(j)){
                 Photo ph = album.getPhoto(currentImg);
-                album.removePhoto(currentImg);
+                user.getAlbum(album.getName()).removePhoto(currentImg);
                 user.getAlbum(j).addPhoto(ph);
                 mA.setText("");
                 if (currentImg == album.getNumPhotos()){
