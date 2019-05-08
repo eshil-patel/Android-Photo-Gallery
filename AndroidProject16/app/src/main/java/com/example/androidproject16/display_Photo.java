@@ -121,7 +121,7 @@ public class display_Photo extends AppCompatActivity {
             showAlert("Name and value must be nonnull!");
             return;
         }
-        Photo toDisplay= album.getPhoto(currentImg);
+        Photo toDisplay= user.getAlbum(album.getName()).getPhoto(currentImg);
         if (tagn.equalsIgnoreCase("Person") || tagn.equalsIgnoreCase("Location")){
             user.getAlbum(album.getName()).getPhoto(currentImg).addTags(new Tag(tagn,tagv));
             toDisplay=user.getAlbum(album.getName()).getPhoto(currentImg);
@@ -171,11 +171,12 @@ public class display_Photo extends AppCompatActivity {
             return;
         }else{
             if ( user.hasAlbum(j)){
-                Photo ph = album.getPhoto(currentImg);
+                Photo ph = user.getAlbum(album.getName()).getPhoto(currentImg);
                 user.getAlbum(album.getName()).removePhoto(currentImg);
                 user.getAlbum(j).addPhoto(ph);
                 mA.setText("");
-                if (currentImg == album.getNumPhotos()){
+                if (currentImg == user.getAlbum(album.getName()).getNumPhotos()){
+
                     currentImg--;
                 }
                 DataSaver.save(this,user);

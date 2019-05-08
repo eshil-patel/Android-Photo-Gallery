@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
             newname.setText("");
             return;
         }
-        newname.setText("");
         user.renameAlbum(a,newname.getText().toString());
+        newname.setText("");
         albumselected=null;
         DataSaver.save(MainActivity.this,user);
         setListView();
