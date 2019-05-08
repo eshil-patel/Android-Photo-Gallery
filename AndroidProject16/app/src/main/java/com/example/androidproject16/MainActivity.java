@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public void create(View view){
         ListView listview = findViewById(R.id.albumname);
         EditText newalbum = findViewById(R.id.createalbum);
+        newalbum.setText("");
         if(newalbum.getText().toString().equals("")){
             showAlert("Please enter a name for new album");
             return;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         }
         String old=albumselected;
         EditText newname = findViewById(R.id.renamealbum);
+        newname.setText("");
         if(newname.getText().toString().equals("")){
             showAlert("Please enter a new name for an album");
             return;
