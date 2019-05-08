@@ -21,7 +21,7 @@ public class Album implements Serializable{
      */
     private static final long serialVersionUID = 4790223858908565017L;
     private String name;
-    private int numPhotos;
+    public int numPhotos;
     private String dateRange;
 
     ArrayList <Photo> Photos;

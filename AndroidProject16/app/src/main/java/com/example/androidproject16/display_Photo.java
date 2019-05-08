@@ -45,8 +45,14 @@ public class display_Photo extends AppCompatActivity {
         // need to update currentImg
     }
     private void updateScreen(){
+        user = DataSaver.load(display_Photo.this);
+        album = user.getAlbum(album.getName());
+        activateButtons();
         if (currentImg == -1){
             showAlert("INVALID IMG");
+            return;
+        }
+        if (currentImg >= album.getNumPhotos()){
             return;
         }
         ImageView m = findViewById(R.id.dispImg);
@@ -88,6 +94,7 @@ public class display_Photo extends AppCompatActivity {
         System.out.println(currentTag);
     }
     public void activateButtons(){
+
         Button m1 = findViewById(R.id.nextImgId);
         Button m2 = findViewById(R.id.prevImgId);
         m1.setEnabled(false);
@@ -176,15 +183,17 @@ public class display_Photo extends AppCompatActivity {
         }else{
             if ( user.hasAlbum(j)){
                 Photo ph = user.getAlbum(album.getName()).getPhoto(currentImg);
+                System.out.println(album.getNumPhotos());
                 user.getAlbum(album.getName()).removePhoto(currentImg);
                 user.getAlbum(j).addPhoto(ph);
+                System.out.println(album.getNumPhotos());
                 mA.setText("");
-                if (currentImg == user.getAlbum(album.getName()).getNumPhotos()){
-
+                if (currentImg == album.getNumPhotos()){
                     currentImg--;
                 }
                 DataSaver.save(this,user);
                 updateScreen();
+
             }else{
                 showAlert("Album does not exist");
                 return;
