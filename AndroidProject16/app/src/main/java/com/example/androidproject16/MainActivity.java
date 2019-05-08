@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         // check if the album is already in the list
         if(user.hasAlbum(newalbum.getText().toString())){
             showAlert("This album already exists");
+            return;
         }
         user.addAlbum(toadd);
         DataSaver.save(MainActivity.this,user);
